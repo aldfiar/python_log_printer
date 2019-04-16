@@ -15,8 +15,9 @@ class Monitor:
     def monitor(self, file_name):
         with open(file_name, 'r') as f:
             for line in f:
-                key = re.search(self.expression, line).group(1)
-                if key:
+                find = re.search(self.expression, line)
+                if find is not None:
+                    key = find.group(1)
                     self._add_line(key=key, line=line.rstrip())
                     if "ERROR" in line:
                         self.reporter.print(self.storage[key])
