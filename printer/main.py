@@ -8,5 +8,5 @@ if __name__ == "__main__":
         print("Pass path to log file")
         exit()
     path = sys.argv[1]
-    monitor = Monitor((r'\[(\d+)\]'), Reporter(4, "----"))
+    monitor = Monitor(r'\[(\d+)\]', Reporter(4, "----"), "ERROR")
     monitor.monitor(path)

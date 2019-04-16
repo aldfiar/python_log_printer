@@ -2,10 +2,11 @@ import re
 
 
 class Monitor:
-    def __init__(self, expression, reporter) -> None:
+    def __init__(self, expression, reporter, condition) -> None:
         self.storage = dict()
         self.expression = expression
         self.reporter = reporter
+        self.condition = condition
 
     def _add_line(self, key, line):
         if key not in self.storage.keys():
@@ -19,5 +20,5 @@ class Monitor:
                 if find is not None:
                     key = find.group(1)
                     self._add_line(key=key, line=line.rstrip())
-                    if "ERROR" in line:
+                    if self.condition in line:
                         self.reporter.print(self.storage[key])
